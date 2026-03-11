@@ -6,7 +6,6 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const errorHandler = require('./middleware/errorHandler');
-
 const authRoutes = require('./routes/authRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
 const menuRoutes = require('./routes/menuRoutes');
@@ -23,13 +22,6 @@ app.use(cors({
   origin: ['https://restaurant-website-seven-vert.vercel.app', 'http://localhost:5173'], 
   credentials: true 
 }));
-```
-
-Commit the change and Vercel will auto redeploy the backend!
-
-Also go to **Vercel → restaurant-backend → Settings → Environment Variables** and make sure `CLIENT_URL` is set to:
-```
-https://restaurant-website-seven-vert.vercel.app
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
@@ -40,9 +32,7 @@ app.use('/api/menu', menuRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/blog', blogRoutes);
-
 app.get('/api/health', (req, res) => res.json({ ok: true }));
-
 app.use(errorHandler);
 
 mongoose.connect(MONGO_URI).then(() => {
@@ -52,6 +42,5 @@ mongoose.connect(MONGO_URI).then(() => {
   console.error('MongoDB connection error:', err);
   process.exit(1);
 });
-
 
 module.exports = app;
