@@ -35,12 +35,10 @@ app.use('/api/blog', blogRoutes);
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 app.use(errorHandler);
 
-mongoose.connect(MONGO_URI).then(() => {
-  console.log('MongoDB connected');
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}).catch(err => {
+mongoose.connect(MONGO_URI).catch(err => {
   console.error('MongoDB connection error:', err);
-  process.exit(1);
 });
 
 module.exports = app;
+
+
